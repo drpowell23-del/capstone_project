@@ -5,4 +5,4 @@ resources:
   - image-updater.yaml
 images:
   - name: drpowell23/flask-ansible
-    newTag: v1.0.2
+    newTag: v1.0.3
