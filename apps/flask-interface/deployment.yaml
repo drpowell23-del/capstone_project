@@ -36,7 +36,7 @@ metadata:
   labels:
     app: flask-ansible
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: flask-ansible

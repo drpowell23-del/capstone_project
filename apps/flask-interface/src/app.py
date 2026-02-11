@@ -651,6 +651,10 @@ def metrics_summary():
     # Get total jobs by collecting samples
     total_jobs = {}
     for sample in ANSIBLE_JOBS_TOTAL.collect()[0].samples:
+        # Skip the "_created" timestamp samples, only process "_total" count samples
+        if not sample.name.endswith("_total"):
+            continue
+
         playbook = sample.labels.get("playbook", "unknown")
         status = sample.labels.get("status", "unknown")
         user = sample.labels.get("user", "unknown")
