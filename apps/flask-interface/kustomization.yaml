@@ -4,4 +4,4 @@ resources:
   - deployment.yaml
 images:
   - name: drpowell23/flask-ansible
-    newTag: v1.0.0
+    newTag: latest
