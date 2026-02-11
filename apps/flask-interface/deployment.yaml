@@ -49,9 +49,6 @@ spec:
         prometheus.io/port: "8000"
         prometheus.io/path: "/metrics"
     spec:
-      securityContext:
-        fsGroup: 0
-        runAsUser: 0
       containers:
       - name: flask-app
         image: drpowell23/flask-ansible:v1.0.1
