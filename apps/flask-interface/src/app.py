@@ -652,7 +652,7 @@ def metrics_summary():
     total_jobs = {}
     for sample in ANSIBLE_JOBS_TOTAL.collect()[0].samples:
         # Skip the "_created" timestamp samples, only process "_total" count samples
-        if not sample.name.endswith("_total"):
+        if "_created" in sample.name or not sample.name.endswith("_total"):
             continue
 
         playbook = sample.labels.get("playbook", "unknown")
