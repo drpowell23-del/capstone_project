@@ -139,7 +139,7 @@ def init_db():
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     name VARCHAR(255) NOT NULL UNIQUE,
                     playbook VARCHAR(255) NOT NULL,
-                    extra_vars TEXT DEFAULT '{}',
+                    extra_vars TEXT,
                     cron_expression VARCHAR(100) NOT NULL,
                     enabled TINYINT(1) DEFAULT 1,
                     created_by VARCHAR(100) NOT NULL,
@@ -565,12 +565,13 @@ def load_schedules_from_db():
             job_id = f"scheduled_{row['id']}"
             try:
                 trigger = CronTrigger.from_crontab(row["cron_expression"])
+                extra_vars = row.get("extra_vars") or "{}"
                 scheduler.add_job(
                     execute_scheduled_job,
                     trigger=trigger,
                     id=job_id,
                     replace_existing=True,
-                    args=[row["name"], row["playbook"], row["extra_vars"]],
+                    args=[row["name"], row["playbook"], extra_vars],
                 )
                 logging.info(
                     f"Loaded schedule: {row['name']} ({row['cron_expression']})"
